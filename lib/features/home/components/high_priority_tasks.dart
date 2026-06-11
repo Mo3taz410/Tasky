@@ -1,13 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:tasky/core/theme/theme_controller.dart';
-import 'package:tasky/screens/high_priority_tasks_screen.dart';
+import 'package:tasky/features/tasks/high_priority_tasks_screen.dart';
 
-import '../core/widgets/custom_checkbox.dart';
-import '../core/widgets/custom_svg_picture.dart';
-import '../models/task_model.dart';
+import '../../../core/widgets/custom_checkbox.dart';
+import '../../../core/widgets/custom_svg_picture.dart';
+import '../../../models/task_model.dart';
 
 class HighPriorityTasks extends StatelessWidget {
-  const HighPriorityTasks({super.key, required this.highPriorityTasks, required this.onChanged, required this.refresh});
+  const HighPriorityTasks({
+    super.key,
+    required this.highPriorityTasks,
+    required this.onChanged,
+    required this.refresh,
+  });
+
   final List<TaskModel> highPriorityTasks;
   final Function(bool?, int) onChanged;
   final Function() refresh;
@@ -31,7 +37,10 @@ class HighPriorityTasks extends StatelessWidget {
               children: [
                 Padding(
                   padding: const EdgeInsets.all(16),
-                  child: Text('High Priority Tasks', style: TextStyle(color: Color(0xFF15B86C), fontSize: 14)),
+                  child: Text(
+                    'High Priority Tasks',
+                    style: TextStyle(color: Color(0xFF15B86C), fontSize: 14),
+                  ),
                 ),
 
                 ...highPriorityTasks.take(4).map((e) {
@@ -62,7 +71,12 @@ class HighPriorityTasks extends StatelessWidget {
             padding: const EdgeInsets.all(16),
             child: GestureDetector(
               onTap: () async {
-                await Navigator.push(context, MaterialPageRoute(builder: (context) => HighPriorityTasksScreen()));
+                await Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => HighPriorityTasksScreen(),
+                  ),
+                );
                 refresh();
               },
               child: Container(
@@ -72,12 +86,16 @@ class HighPriorityTasks extends StatelessWidget {
                 decoration: BoxDecoration(
                   color: Colors.transparent,
                   border: Border.all(
-                    color: ThemeController.isDarkMode() ? Color(0xFF6E6E6E) : Color(0xFFD1DAD6),
+                    color: ThemeController.isDarkMode()
+                        ? Color(0xFF6E6E6E)
+                        : Color(0xFFD1DAD6),
                     width: 1,
                   ),
                   shape: BoxShape.circle,
                 ),
-                child: CustomSvgPicture(path: 'assets/icons/arrow_up_right.svg'),
+                child: CustomSvgPicture(
+                  path: 'assets/icons/arrow_up_right.svg',
+                ),
                 // SvgPicture.asset(
                 //   'assets/icons/arrow_up_right.svg',
                 //   width: 10,

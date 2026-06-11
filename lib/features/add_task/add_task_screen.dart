@@ -2,8 +2,8 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:tasky/models/task_model.dart';
 
-import '../core/services/shared_preferences_manager.dart';
-import '../core/widgets/custom_text_form_field.dart';
+import '../../core/services/shared_preferences_manager.dart';
+import '../../core/widgets/custom_text_form_field.dart';
 
 class AddTaskScreen extends StatefulWidget {
   const AddTaskScreen({super.key});

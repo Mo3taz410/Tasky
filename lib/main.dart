@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:tasky/screens/main_screen.dart';
-import 'package:tasky/screens/welcome_screen.dart';
+import 'package:tasky/features/navigation/main_screen.dart';
+import 'package:tasky/features/welcome/welcome_screen.dart';
 import 'core/services/shared_preferences_manager.dart';
 import 'core/theme/dark_theme.dart';
 import 'core/theme/light_theme.dart';
@@ -16,7 +16,9 @@ Future<void> main() async {
 
 class MyApp extends StatelessWidget {
   final String? name;
+
   const MyApp({super.key, this.name});
+
   @override
   Widget build(BuildContext context) {
     return ValueListenableBuilder(

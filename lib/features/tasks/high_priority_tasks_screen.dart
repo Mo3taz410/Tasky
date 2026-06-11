@@ -1,8 +1,8 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
-import '../core/services/shared_preferences_manager.dart';
-import '../models/task_model.dart';
-import '../widgets/tasks_list.dart';
+import '../../core/services/shared_preferences_manager.dart';
+import '../../models/task_model.dart';
+import '../../core/components/tasks_list.dart';
 
 class HighPriorityTasksScreen extends StatefulWidget {
   const HighPriorityTasksScreen({super.key});

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:tasky/widgets/task_item.dart';
+import 'package:tasky/core/components/task_item.dart';
 
-import '../models/task_model.dart';
+import '../../models/task_model.dart';
 
 class TasksList extends StatelessWidget {
   const TasksList({
