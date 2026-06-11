@@ -3,18 +3,18 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:tasky/models/task_model.dart';
 
-import '../core/services/shared_preferences_manager.dart';
-import '../widgets/tasks_list.dart';
+import '../../core/services/shared_preferences_manager.dart';
+import '../../core/components/tasks_list.dart';
 
-class CompletedTasksScreen extends StatefulWidget {
-  const CompletedTasksScreen({super.key});
+class ToDoTasksScreen extends StatefulWidget {
+  const ToDoTasksScreen({super.key});
 
   @override
-  State<CompletedTasksScreen> createState() => _CompletedTasksScreen();
+  State<ToDoTasksScreen> createState() => _ToDoTasksScreenState();
 }
 
-class _CompletedTasksScreen extends State<CompletedTasksScreen> {
-  List<TaskModel> completedTasks = [];
+class _ToDoTasksScreenState extends State<ToDoTasksScreen> {
+  List<TaskModel> toDoTasks = [];
 
   @override
   void initState() {
@@ -30,7 +30,7 @@ class _CompletedTasksScreen extends State<CompletedTasksScreen> {
     tasks = decodedList.map((e) => TaskModel.fromJson(e)).toList();
     tasks.removeWhere((task) => task.id == id);
     setState(() {
-      completedTasks.removeWhere((task) => task.id == id);
+      toDoTasks.removeWhere((task) => task.id == id);
     });
     final updatedTasks = tasks.map((e) => e.toJson()).toList();
     await SharedPreferencesManager().setString(
@@ -43,9 +43,9 @@ class _CompletedTasksScreen extends State<CompletedTasksScreen> {
     final String? getTasks = SharedPreferencesManager().getString('tasks');
     if (getTasks == null) return;
     final List<dynamic> decodedList = jsonDecode(getTasks);
-    completedTasks = decodedList
+    toDoTasks = decodedList
         .map((e) => TaskModel.fromJson(e))
-        .where((element) => element.isCompleted)
+        .where((element) => !element.isCompleted)
         .toList();
     setState(() {});
   }
@@ -55,24 +55,29 @@ class _CompletedTasksScreen extends State<CompletedTasksScreen> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Completed Tasks', style: Theme.of(context).textTheme.labelLarge),
+        Text('To Do Tasks', style: Theme.of(context).textTheme.labelLarge),
         SizedBox(height: 20),
         Expanded(
           child: TasksList(
-            tasks: completedTasks,
+            tasks: toDoTasks,
             onChanged: (bool? value, int index) async {
               setState(() {
-                completedTasks[index].isCompleted = value!;
+                toDoTasks[index].isCompleted = value!;
               });
+              // SharedPreferences prefs = await SharedPreferences.getInstance();
+              // final updatedTasks = tasks.map((e) => e.toJson()).toList();
+              // prefs.setString('tasks', jsonEncode(updatedTasks));
+              // _loadTasks();
+
               final allTasks = SharedPreferencesManager().getString('tasks');
               if (allTasks == null) return;
               List<TaskModel> allTasksList = (jsonDecode(allTasks) as List)
                   .map((e) => TaskModel.fromJson(e))
                   .toList();
               final taskIndex = allTasksList.indexWhere(
-                (e) => e.id == completedTasks[index].id,
+                (e) => e.id == toDoTasks[index].id,
               );
-              allTasksList[taskIndex] = completedTasks[index];
+              allTasksList[taskIndex] = toDoTasks[index];
               await SharedPreferencesManager().setString(
                 'tasks',
                 jsonEncode(allTasksList),

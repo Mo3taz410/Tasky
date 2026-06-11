@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:tasky/core/services/shared_preferences_manager.dart';
 
-import '../core/widgets/custom_svg_picture.dart';
-import '../core/widgets/custom_text_form_field.dart';
-import 'main_screen.dart';
+import '../../core/widgets/custom_svg_picture.dart';
+import '../../core/widgets/custom_text_form_field.dart';
+import '../navigation/main_screen.dart';
 
 class WelcomeScreen extends StatelessWidget {
   WelcomeScreen({super.key});
+
   final nameController = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
@@ -25,26 +26,40 @@ class WelcomeScreen extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      CustomSvgPicture.withoutColor(path: 'assets/icons/app_logo.svg'),
+                      CustomSvgPicture.withoutColor(
+                        path: 'assets/icons/app_logo.svg',
+                      ),
                       SizedBox(width: 10),
-                      Text("Tasky", style: Theme.of(context).textTheme.displayMedium),
+                      Text(
+                        "Tasky",
+                        style: Theme.of(context).textTheme.displayMedium,
+                      ),
                     ],
                   ),
                   SizedBox(height: 110),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text("Welcome to Tasky", style: Theme.of(context).textTheme.displaySmall),
-                      CustomSvgPicture.withoutColor(path: 'assets/icons/waving_hand.svg'),
+                      Text(
+                        "Welcome to Tasky",
+                        style: Theme.of(context).textTheme.displaySmall,
+                      ),
+                      CustomSvgPicture.withoutColor(
+                        path: 'assets/icons/waving_hand.svg',
+                      ),
                     ],
                   ),
                   SizedBox(height: 10),
                   Text(
                     'Your productivity journey starts here.',
-                    style: Theme.of(context).textTheme.displaySmall!.copyWith(fontSize: 16),
+                    style: Theme.of(
+                      context,
+                    ).textTheme.displaySmall!.copyWith(fontSize: 16),
                   ),
                   SizedBox(height: 20),
-                  CustomSvgPicture.withoutColor(path: 'assets/images/welcome.svg'),
+                  CustomSvgPicture.withoutColor(
+                    path: 'assets/images/welcome.svg',
+                  ),
                   SizedBox(height: 20),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -88,13 +103,23 @@ class WelcomeScreen extends StatelessWidget {
                         child: ElevatedButton(
                           onPressed: () async {
                             if (_formKey.currentState!.validate()) {
-                              await SharedPreferencesManager().setString('name', nameController.text);
+                              await SharedPreferencesManager().setString(
+                                'name',
+                                nameController.text,
+                              );
                               if (!context.mounted) return;
-                              Navigator.push(context, MaterialPageRoute(builder: (context) => MainScreen()));
-                            } else {
-                              ScaffoldMessenger.of(
+                              Navigator.push(
                                 context,
-                              ).showSnackBar(SnackBar(content: Text('Please enter your name.')));
+                                MaterialPageRoute(
+                                  builder: (context) => MainScreen(),
+                                ),
+                              );
+                            } else {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  content: Text('Please enter your name.'),
+                                ),
+                              );
                             }
                           },
                           child: Text('Let\'s Get Started'),
