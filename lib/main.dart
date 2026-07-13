@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tasky/features/navigation/main_screen.dart';
 import 'package:tasky/features/welcome/welcome_screen.dart';
+import 'core/constants/storage_keys.dart';
 import 'core/services/shared_preferences_manager.dart';
 import 'core/theme/dark_theme.dart';
 import 'core/theme/light_theme.dart';
@@ -10,7 +11,9 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await SharedPreferencesManager().init();
   ThemeController().init();
-  final String? name = SharedPreferencesManager().getString('name');
+  final String? name = SharedPreferencesManager().getString(
+    StorageKeys.userName,
+  );
   runApp(MyApp(name: name));
 }
 

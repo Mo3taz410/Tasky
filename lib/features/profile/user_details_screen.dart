@@ -2,12 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:tasky/core/services/shared_preferences_manager.dart';
 import 'package:tasky/core/widgets/custom_text_form_field.dart';
 
+import '../../core/constants/storage_keys.dart';
+
 class UserDetailsScreen extends StatefulWidget {
   const UserDetailsScreen({
     super.key,
     required this.name,
     required this.motivationQuote,
   });
+
   final String name;
   final String? motivationQuote;
 
@@ -96,9 +99,14 @@ class _UserDetailsScreenState extends State<UserDetailsScreen> {
                 ElevatedButton(
                   onPressed: () async {
                     if (_formKey.currentState!.validate()) {
-                      await SharedPreferencesManager().setString('name', usernameController.text);
-                      await SharedPreferencesManager().setString('motivation_quote',
-                        motivationQuoteController.text,);
+                      await SharedPreferencesManager().setString(
+                        StorageKeys.userName,
+                        usernameController.text,
+                      );
+                      await SharedPreferencesManager().setString(
+                        'motivation_quote',
+                        motivationQuoteController.text,
+                      );
                       if (!context.mounted) return;
                       Navigator.of(context).pop(true);
                     }

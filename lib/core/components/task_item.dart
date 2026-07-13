@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:tasky/core/theme/theme_controller.dart';
+import '../constants/storage_keys.dart';
 import '../enums/task_item_actions.dart';
 import '../services/shared_preferences_manager.dart';
 import '../widgets/custom_checkbox.dart';
@@ -207,7 +208,7 @@ class TaskItem extends StatelessWidget {
                         onPressed: () async {
                           if (formKey.currentState!.validate()) {
                             final tasksJson = SharedPreferencesManager()
-                                .getString('tasks');
+                                .getString(StorageKeys.tasks);
                             List<dynamic> tasksList = [];
                             if (tasksJson != null) {
                               tasksList = jsonDecode(tasksJson);
@@ -227,7 +228,7 @@ class TaskItem extends StatelessWidget {
 
                             final tasksEncode = jsonEncode(tasksList);
                             await SharedPreferencesManager().setString(
-                              'tasks',
+                              StorageKeys.tasks,
                               tasksEncode,
                             );
                             if (!context.mounted) return;

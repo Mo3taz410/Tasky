@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:tasky/core/constants/storage_keys.dart';
 import '../../core/services/shared_preferences_manager.dart';
 import '../../models/task_model.dart';
 import '../../core/components/tasks_list.dart';
@@ -22,7 +23,9 @@ class _HighPriorityTasksScreenState extends State<HighPriorityTasksScreen> {
   }
 
   void _loadTasks() async {
-    final String? getTasks = SharedPreferencesManager().getString('tasks');
+    final String? getTasks = SharedPreferencesManager().getString(
+      StorageKeys.tasks,
+    );
     if (getTasks == null) return;
     final List<dynamic> decodedList = jsonDecode(getTasks);
     highPriorityTasks = decodedList
@@ -34,7 +37,9 @@ class _HighPriorityTasksScreenState extends State<HighPriorityTasksScreen> {
 
   _deleteTask(int id) async {
     List<TaskModel> tasks = [];
-    final String? getTasks = SharedPreferencesManager().getString('tasks');
+    final String? getTasks = SharedPreferencesManager().getString(
+      StorageKeys.tasks,
+    );
     if (getTasks == null) return;
     final List<dynamic> decodedList = jsonDecode(getTasks);
     tasks = decodedList.map((e) => TaskModel.fromJson(e)).toList();
@@ -44,7 +49,7 @@ class _HighPriorityTasksScreenState extends State<HighPriorityTasksScreen> {
     });
     final updatedTasks = tasks.map((e) => e.toJson()).toList();
     await SharedPreferencesManager().setString(
-      'tasks',
+      StorageKeys.tasks,
       jsonEncode(updatedTasks),
     );
   }
@@ -67,7 +72,7 @@ class _HighPriorityTasksScreenState extends State<HighPriorityTasksScreen> {
                       highPriorityTasks[index].isCompleted = value!;
                     });
                     final allTasks = SharedPreferencesManager().getString(
-                      'tasks',
+                      StorageKeys.tasks,
                     );
                     if (allTasks == null) return;
                     List<TaskModel> allTasksList =
@@ -79,7 +84,7 @@ class _HighPriorityTasksScreenState extends State<HighPriorityTasksScreen> {
                     );
                     allTasksList[taskIndex] = highPriorityTasks[index];
                     await SharedPreferencesManager().setString(
-                      'tasks',
+                      StorageKeys.tasks,
                       jsonEncode(allTasksList),
                     );
                     _loadTasks();

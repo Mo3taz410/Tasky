@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:tasky/features/home/components/achieved_tasks.dart';
 import 'package:tasky/features/home/components/high_priority_tasks.dart';
 
+import '../../core/constants/storage_keys.dart';
 import '../../core/services/shared_preferences_manager.dart';
 import '../../core/widgets/custom_svg_picture.dart';
 import '../../models/task_model.dart';
@@ -36,13 +37,15 @@ class _HomeScreenState extends State<HomeScreen> {
     profilePicturePath = SharedPreferencesManager().getString(
       'profile_picture',
     );
-    name = SharedPreferencesManager().getString('name') ?? "";
+    name = SharedPreferencesManager().getString(StorageKeys.userName) ?? "";
     isLoading = false;
     setState(() {});
   }
 
   void _loadTasks() async {
-    final String? getTasks = SharedPreferencesManager().getString('tasks');
+    final String? getTasks = SharedPreferencesManager().getString(
+      StorageKeys.tasks,
+    );
     if (getTasks == null) return;
     final List<dynamic> decodedList = jsonDecode(getTasks);
     tasks = decodedList.map((e) => TaskModel.fromJson(e)).toList();
@@ -57,7 +60,7 @@ class _HomeScreenState extends State<HomeScreen> {
     });
     final updatedTasks = tasks.map((e) => e.toJson()).toList();
     await SharedPreferencesManager().setString(
-      'tasks',
+      StorageKeys.tasks,
       jsonEncode(updatedTasks),
     );
   }
@@ -68,7 +71,7 @@ class _HomeScreenState extends State<HomeScreen> {
     });
     final updatedTasks = tasks.map((e) => e.toJson()).toList();
     await SharedPreferencesManager().setString(
-      'tasks',
+      StorageKeys.tasks,
       jsonEncode(updatedTasks),
     );
   }

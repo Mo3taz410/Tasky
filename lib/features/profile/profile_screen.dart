@@ -4,6 +4,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:tasky/features/profile/user_details_screen.dart';
 import 'package:tasky/features/welcome/welcome_screen.dart';
+import '../../core/constants/storage_keys.dart';
 import '../../core/services/shared_preferences_manager.dart';
 import '../../core/theme/theme_controller.dart';
 
@@ -27,7 +28,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   }
 
   void _loadData() async {
-    name = SharedPreferencesManager().getString('name') ?? "";
+    name = SharedPreferencesManager().getString(StorageKeys.userName) ?? "";
     motivationQuote =
         SharedPreferencesManager().getString('motivation_quote') ??
         'One task at a time.One step closer.';
@@ -146,9 +147,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 Divider(),
                 ListTile(
                   onTap: () async {
-                    SharedPreferencesManager().remove('name');
-                    SharedPreferencesManager().remove('motivation_quote');
-                    SharedPreferencesManager().remove('tasks');
+                    SharedPreferencesManager().remove(StorageKeys.userName);
+                    SharedPreferencesManager().remove(
+                      StorageKeys.motivationQuote,
+                    );
+                    SharedPreferencesManager().remove(StorageKeys.tasks);
                     if (!context.mounted) return;
                     Navigator.pushAndRemoveUntil(
                       context,

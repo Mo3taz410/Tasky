@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:tasky/models/task_model.dart';
 
+import '../../core/constants/storage_keys.dart';
 import '../../core/services/shared_preferences_manager.dart';
 import '../../core/components/tasks_list.dart';
 
@@ -24,7 +25,9 @@ class _ToDoTasksScreenState extends State<ToDoTasksScreen> {
 
   _deleteTask(int id) async {
     List<TaskModel> tasks = [];
-    final String? getTasks = SharedPreferencesManager().getString('tasks');
+    final String? getTasks = SharedPreferencesManager().getString(
+      StorageKeys.tasks,
+    );
     if (getTasks == null) return;
     final List<dynamic> decodedList = jsonDecode(getTasks);
     tasks = decodedList.map((e) => TaskModel.fromJson(e)).toList();
@@ -34,13 +37,15 @@ class _ToDoTasksScreenState extends State<ToDoTasksScreen> {
     });
     final updatedTasks = tasks.map((e) => e.toJson()).toList();
     await SharedPreferencesManager().setString(
-      'tasks',
+      StorageKeys.tasks,
       jsonEncode(updatedTasks),
     );
   }
 
   void _loadTasks() async {
-    final String? getTasks = SharedPreferencesManager().getString('tasks');
+    final String? getTasks = SharedPreferencesManager().getString(
+      StorageKeys.tasks,
+    );
     if (getTasks == null) return;
     final List<dynamic> decodedList = jsonDecode(getTasks);
     toDoTasks = decodedList
@@ -69,7 +74,9 @@ class _ToDoTasksScreenState extends State<ToDoTasksScreen> {
               // prefs.setString('tasks', jsonEncode(updatedTasks));
               // _loadTasks();
 
-              final allTasks = SharedPreferencesManager().getString('tasks');
+              final allTasks = SharedPreferencesManager().getString(
+                StorageKeys.tasks,
+              );
               if (allTasks == null) return;
               List<TaskModel> allTasksList = (jsonDecode(allTasks) as List)
                   .map((e) => TaskModel.fromJson(e))
@@ -79,7 +86,7 @@ class _ToDoTasksScreenState extends State<ToDoTasksScreen> {
               );
               allTasksList[taskIndex] = toDoTasks[index];
               await SharedPreferencesManager().setString(
-                'tasks',
+                StorageKeys.tasks,
                 jsonEncode(allTasksList),
               );
               _loadTasks();
