@@ -3,4 +3,5 @@ class StorageKeys {
   static const String motivationQuote = 'motivation_quote';
   static const String profilePicture = 'profile_picture';
   static const String tasks = 'tasks';
+  static const String darkTheme = 'dark_theme';
 }

@@ -104,7 +104,7 @@ class _UserDetailsScreenState extends State<UserDetailsScreen> {
                         usernameController.text,
                       );
                       await SharedPreferencesManager().setString(
-                        'motivation_quote',
+                        StorageKeys.motivationQuote,
                         motivationQuoteController.text,
                       );
                       if (!context.mounted) return;

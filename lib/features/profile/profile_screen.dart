@@ -30,10 +30,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
   void _loadData() async {
     name = SharedPreferencesManager().getString(StorageKeys.userName) ?? "";
     motivationQuote =
-        SharedPreferencesManager().getString('motivation_quote') ??
+        SharedPreferencesManager().getString(StorageKeys.motivationQuote) ??
         'One task at a time.One step closer.';
     profilePicturePath = SharedPreferencesManager().getString(
-      'profile_picture',
+      StorageKeys.profilePicture,
     );
     isLoading = false;
     setState(() {});
@@ -229,6 +229,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
   void _saveProfilePicture(XFile file) async {
     final appDir = await getApplicationDocumentsDirectory();
     final newFile = await File(file.path).copy('${appDir.path}/${file.name}');
-    SharedPreferencesManager().setString('profile_picture', newFile.path);
+    SharedPreferencesManager().setString(
+      StorageKeys.profilePicture,
+      newFile.path,
+    );
   }
 }
