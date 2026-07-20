@@ -5,7 +5,7 @@ import '../../core/constants/storage_keys.dart';
 import '../../core/services/shared_preferences_manager.dart';
 
 class HomeController with ChangeNotifier {
-  late final String name;
+  String name = '';
   String? profilePicturePath;
   bool isLoading = true;
   List<TaskModel> tasks = [];
@@ -16,7 +16,7 @@ class HomeController with ChangeNotifier {
     loadTasks();
   }
 
-  void loadUserInfo() async {
+  Future<void> loadUserInfo() async {
     profilePicturePath = SharedPreferencesManager().getString(
       StorageKeys.profilePicture,
     );
@@ -25,7 +25,7 @@ class HomeController with ChangeNotifier {
     notifyListeners();
   }
 
-  void loadTasks() async {
+  Future<void> loadTasks() async {
     final String? getTasks = SharedPreferencesManager().getString(
       StorageKeys.tasks,
     );

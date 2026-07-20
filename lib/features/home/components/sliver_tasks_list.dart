@@ -1,46 +1,53 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:tasky/core/components/task_item.dart';
-
-import '../../../models/task_model.dart';
+import '../home_controller.dart';
 
 class SliverTasksList extends StatelessWidget {
-  const SliverTasksList({
-    super.key,
-    required this.tasks,
-    required this.onChanged,
-    required this.onDelete,
-    required this.onEdit,
-  });
-
-  final List<TaskModel> tasks;
-  final Function(bool?, int) onChanged;
-  final Function(int) onDelete;
-  final Function() onEdit;
+  const SliverTasksList({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return SliverPadding(
-      padding: const EdgeInsets.only(bottom: 80),
-      sliver: SliverList.separated(
-        itemCount: tasks.length,
-        itemBuilder: (BuildContext context, int index) {
-          return TaskItem(
-            taskModel: tasks[index],
-            onChanged: (value) {
-              onChanged(value, index);
-            },
-            onDelete: (int id) {
-              onDelete(id);
-            },
-            onEdit: () {
-              onEdit();
-            },
-          );
-        },
-        separatorBuilder: (BuildContext context, int index) {
-          return SizedBox(height: 8);
-        },
-      ),
+    return Consumer<HomeController>(
+      builder:
+          (BuildContext context, HomeController controller, Widget? child) {
+            return controller.isLoading
+                ? SliverToBoxAdapter(
+                    child: Center(child: CircularProgressIndicator(value: 20)),
+                  )
+                : controller.tasks.isEmpty
+                ? SliverToBoxAdapter(
+                    child: Center(
+                      child: Text(
+                        'No Tasks Yet',
+                        style: Theme.of(context).textTheme.titleMedium,
+                      ),
+                    ),
+                  )
+                : SliverPadding(
+                    padding: const EdgeInsets.only(bottom: 80),
+                    sliver: SliverList.separated(
+                      itemCount: controller.tasks.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        return TaskItem(
+                          taskModel: controller.tasks[index],
+                          onChanged: (value) {
+                            controller.isCompleted(value, index);
+                          },
+                          onDelete: (int id) {
+                            controller.deleteTask(id);
+                          },
+                          onEdit: () {
+                            controller.loadTasks();
+                          },
+                        );
+                      },
+                      separatorBuilder: (BuildContext context, int index) {
+                        return SizedBox(height: 8);
+                      },
+                    ),
+                  );
+          },
     );
   }
 }
