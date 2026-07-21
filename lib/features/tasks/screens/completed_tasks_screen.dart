@@ -33,7 +33,7 @@ class CompletedTasksScreen extends StatelessWidget {
                       return TasksList(
                         tasks: tasksController.completedTasks,
                         onChanged: (bool? value, int index) async {
-                          await controller.toogleCompleted(value, index);
+                          await controller.toggleCompleted(value, index);
                         },
                         onDelete: (int id) {
                           controller.deleteTask(id);

@@ -33,7 +33,7 @@ class HighPriorityTasksScreen extends StatelessWidget {
                             return TasksList(
                               tasks: tasksController.highPriorityTasks,
                               onChanged: (bool? value, int index) async {
-                                await controller.toogleHighPriority(
+                                await controller.toggleHighPriority(
                                   value,
                                   index,
                                 );

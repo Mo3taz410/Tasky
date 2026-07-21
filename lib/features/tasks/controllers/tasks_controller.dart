@@ -44,7 +44,7 @@ class TasksController extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> toogleTodo(bool? value, int? index) async {
+  Future<void> toggleTodo(bool? value, int? index) async {
     if (index == null) return;
     todoTasks[index].isCompleted = value!;
     final taskIndex = tasks.indexWhere((e) => e.id == todoTasks[index].id);
@@ -56,7 +56,7 @@ class TasksController extends ChangeNotifier {
     loadTasks();
   }
 
-  Future<void> toogleCompleted(bool? value, int? index) async {
+  Future<void> toggleCompleted(bool? value, int? index) async {
     if (index == null) return;
     completedTasks[index].isCompleted = value!;
     final taskIndex = tasks.indexWhere((e) => e.id == completedTasks[index].id);
@@ -68,7 +68,7 @@ class TasksController extends ChangeNotifier {
     loadTasks();
   }
 
-  Future<void> toogleHighPriority(bool? value, int? index) async {
+  Future<void> toggleHighPriority(bool? value, int? index) async {
     if (index == null) return;
     highPriorityTasks[index].isCompleted = value!;
     final taskIndex = tasks.indexWhere(

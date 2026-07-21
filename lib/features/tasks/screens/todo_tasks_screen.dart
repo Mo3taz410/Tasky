@@ -30,7 +30,7 @@ class ToDoTasksScreen extends StatelessWidget {
                       return TasksList(
                         tasks: tasksController.todoTasks,
                         onChanged: (bool? value, int index) async {
-                          await controller.toogleTodo(value, index);
+                          await controller.toggleTodo(value, index);
                         },
                         onDelete: (int id) {
                           controller.deleteTask(id);
