@@ -1,8 +1,8 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:tasky/models/task_model.dart';
-import '../../core/constants/storage_keys.dart';
-import '../../core/services/shared_preferences_manager.dart';
+import '../../../core/constants/storage_keys.dart';
+import '../../../core/services/shared_preferences_manager.dart';
 
 class HomeController with ChangeNotifier {
   String name = '';

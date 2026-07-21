@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tasky/features/home/components/achieved_tasks.dart';
 import 'package:tasky/features/home/components/high_priority_tasks.dart';
-import '../../core/widgets/custom_svg_picture.dart';
-import 'components/sliver_tasks_list.dart';
-import '../add_task/add_task_screen.dart';
-import 'home_controller.dart';
+import '../../../core/widgets/custom_svg_picture.dart';
+import '../components/sliver_tasks_list.dart';
+import '../../add_task/add_task_screen.dart';
+import '../controllers/home_controller.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});

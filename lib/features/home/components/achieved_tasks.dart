@@ -2,7 +2,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../home_controller.dart';
+import '../controllers/home_controller.dart';
 
 class AchievedTasks extends StatelessWidget {
   const AchievedTasks({super.key});

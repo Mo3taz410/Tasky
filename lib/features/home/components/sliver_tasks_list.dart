@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tasky/core/components/task_item.dart';
-import '../home_controller.dart';
+import '../controllers/home_controller.dart';
 
 class SliverTasksList extends StatelessWidget {
   const SliverTasksList({super.key});
