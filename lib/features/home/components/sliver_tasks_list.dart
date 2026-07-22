@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tasky/core/components/task_item.dart';
-import '../controllers/home_controller.dart';
+import '../../tasks/controllers/tasks_controller.dart';
 
 class SliverTasksList extends StatelessWidget {
   const SliverTasksList({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<HomeController>(
+    return Consumer<TasksController>(
       builder:
-          (BuildContext context, HomeController controller, Widget? child) {
+          (BuildContext context, TasksController controller, Widget? child) {
             return controller.isLoading
                 ? SliverToBoxAdapter(
                     child: Center(child: CircularProgressIndicator(value: 20)),
@@ -32,7 +32,10 @@ class SliverTasksList extends StatelessWidget {
                         return TaskItem(
                           taskModel: controller.tasks[index],
                           onChanged: (value) {
-                            controller.isCompleted(value, index);
+                            controller.toggleCompleted(
+                              value,
+                              id: controller.tasks[index].id,
+                            );
                           },
                           onDelete: (int id) {
                             controller.deleteTask(id);

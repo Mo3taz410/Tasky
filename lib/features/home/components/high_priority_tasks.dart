@@ -4,16 +4,16 @@ import 'package:tasky/core/theme/theme_controller.dart';
 import 'package:tasky/features/tasks/screens/high_priority_tasks_screen.dart';
 import '../../../core/widgets/custom_checkbox.dart';
 import '../../../core/widgets/custom_svg_picture.dart';
-import '../controllers/home_controller.dart';
+import '../../tasks/controllers/tasks_controller.dart';
 
 class HighPriorityTasks extends StatelessWidget {
   const HighPriorityTasks({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<HomeController>(
+    return Consumer<TasksController>(
       builder:
-          (BuildContext context, HomeController controller, Widget? child) {
+          (BuildContext context, TasksController controller, Widget? child) {
             final highPriorityTasks = controller.tasks
                 .where((task) => task.isHighPriority)
                 .toList();
@@ -49,8 +49,7 @@ class HighPriorityTasks extends StatelessWidget {
                               CustomCheckbox(
                                 value: e.isCompleted,
                                 onChanged: (value) {
-                                  final index = highPriorityTasks.indexOf(e);
-                                  controller.isCompleted(value, index);
+                                  controller.toggleCompleted(value, id: e.id);
                                 },
                               ),
                               Expanded(

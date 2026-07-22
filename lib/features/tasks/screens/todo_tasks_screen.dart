@@ -8,43 +8,40 @@ class ToDoTasksScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider<TasksController>(
-      create: (_) {
-        return TasksController()..loadTasks();
-      },
-      builder: (BuildContext context, _) {
-        final TasksController controller = context.read<TasksController>();
-        return Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text('To Do Tasks', style: Theme.of(context).textTheme.labelLarge),
-            SizedBox(height: 20),
-            Expanded(
-              child: Consumer<TasksController>(
-                builder:
-                    (
-                      BuildContext context,
-                      TasksController tasksController,
-                      Widget? child,
-                    ) {
-                      return TasksList(
-                        tasks: tasksController.todoTasks,
-                        onChanged: (bool? value, int index) async {
-                          await controller.toggleTodo(value, index);
-                        },
-                        onDelete: (int id) {
-                          controller.deleteTask(id);
-                        },
-                        onEdit: () {
-                          controller.loadTasks();
-                        },
-                      );
+    final TasksController controller = context.read<TasksController>();
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text('To Do Tasks', style: Theme.of(context).textTheme.labelLarge),
+        SizedBox(height: 20),
+        Expanded(
+          child: Consumer<TasksController>(
+            builder:
+                (
+                  BuildContext context,
+                  TasksController tasksController,
+                  Widget? child,
+                ) {
+                  return TasksList(
+                    tasks: tasksController.todoTasks,
+                    onChanged: (bool? value, int index) async {
+                      await controller.toggleCompleted(
+                        value,
+                        id: tasksController.todoTasks[index].id,
+                      ); //testt
                     },
-              ),
-            ),
-          ],
-        );
-      },
+                    onDelete: (int id) {
+                      controller.deleteTask(id);
+                    },
+                    onEdit: () {
+                      controller.loadTasks();
+                    },
+                  );
+                },
+          ),
+        ),
+      ],
     );
   }
 }

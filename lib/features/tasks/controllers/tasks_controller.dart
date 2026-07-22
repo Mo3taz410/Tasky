@@ -19,22 +19,14 @@ class TasksController extends ChangeNotifier {
     if (getTasks == null) return;
     final List<dynamic> decodedList = jsonDecode(getTasks);
     tasks = decodedList.map((e) => TaskModel.fromJson(e)).toList();
-    completedTasks = tasks.where((element) => element.isCompleted).toList();
-    todoTasks = tasks.where((element) => !element.isCompleted).toList();
-    highPriorityTasks = tasks
-        .where((element) => element.isHighPriority)
-        .toList();
+    _loadData();
     isLoading = false;
     notifyListeners();
   }
 
   Future<void> deleteTask(int id) async {
     tasks.removeWhere((task) => task.id == id);
-    completedTasks = tasks.where((element) => element.isCompleted).toList();
-    todoTasks = tasks.where((element) => !element.isCompleted).toList();
-    highPriorityTasks = tasks
-        .where((element) => element.isHighPriority)
-        .toList();
+    _loadData();
 
     final updatedTasks = tasks.map((e) => e.toJson()).toList();
     await SharedPreferencesManager().setString(
@@ -44,41 +36,22 @@ class TasksController extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> toggleTodo(bool? value, int? index) async {
-    if (index == null) return;
-    todoTasks[index].isCompleted = value!;
-    final taskIndex = tasks.indexWhere((e) => e.id == todoTasks[index].id);
-    tasks[taskIndex] = todoTasks[index];
+  Future<void> toggleCompleted(bool? value, {required int id}) async {
+    final index = tasks.indexWhere((element) => element.id == id);
+    tasks[index].isCompleted = value!;
+    _loadData();
     await SharedPreferencesManager().setString(
       StorageKeys.tasks,
       jsonEncode(tasks),
     );
-    loadTasks();
+    notifyListeners();
   }
 
-  Future<void> toggleCompleted(bool? value, int? index) async {
-    if (index == null) return;
-    completedTasks[index].isCompleted = value!;
-    final taskIndex = tasks.indexWhere((e) => e.id == completedTasks[index].id);
-    tasks[taskIndex] = completedTasks[index];
-    await SharedPreferencesManager().setString(
-      StorageKeys.tasks,
-      jsonEncode(tasks),
-    );
-    loadTasks();
-  }
-
-  Future<void> toggleHighPriority(bool? value, int? index) async {
-    if (index == null) return;
-    highPriorityTasks[index].isCompleted = value!;
-    final taskIndex = tasks.indexWhere(
-      (e) => e.id == highPriorityTasks[index].id,
-    );
-    tasks[taskIndex] = highPriorityTasks[index];
-    await SharedPreferencesManager().setString(
-      StorageKeys.tasks,
-      jsonEncode(tasks),
-    );
-    loadTasks();
+  _loadData() {
+    todoTasks = tasks.where((element) => !element.isCompleted).toList();
+    completedTasks = tasks.where((element) => element.isCompleted).toList();
+    highPriorityTasks = tasks
+        .where((element) => element.isHighPriority)
+        .toList();
   }
 }

@@ -1,16 +1,15 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
-import '../controllers/home_controller.dart';
+import '../../tasks/controllers/tasks_controller.dart';
 
 class AchievedTasks extends StatelessWidget {
   const AchievedTasks({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<HomeController>(
-      builder: (BuildContext context, HomeController controller, Widget? child) {
+    return Consumer<TasksController>(
+      builder: (BuildContext context, TasksController controller, Widget? child) {
         return Container(
           padding: EdgeInsets.all(16),
           width: double.infinity,
@@ -29,7 +28,7 @@ class AchievedTasks extends StatelessWidget {
                     style: Theme.of(context).textTheme.titleMedium,
                   ),
                   Text(
-                    '${controller.completedTasks} Out of ${controller.tasks.length} Done',
+                    '${controller.completedTasks.length} Out of ${controller.tasks.length} Done',
                     style: Theme.of(context).textTheme.titleSmall,
                   ),
                 ],
@@ -46,7 +45,7 @@ class AchievedTasks extends StatelessWidget {
                         backgroundColor: Color(0xFF6D6D6D),
                         value: controller.tasks.isEmpty
                             ? 0
-                            : controller.completedTasks /
+                            : controller.completedTasks.length /
                                   controller.tasks.length,
                         color: Color(0xFF15B86C),
                         strokeWidth: 4,
@@ -56,7 +55,7 @@ class AchievedTasks extends StatelessWidget {
                   Text(
                     controller.tasks.isEmpty
                         ? '0%'
-                        : '${(controller.completedTasks / controller.tasks.length * 100).toStringAsFixed(0)}%',
+                        : '${(controller.completedTasks.length / controller.tasks.length * 100).toStringAsFixed(0)}%',
                     style: Theme.of(context).textTheme.titleMedium,
                   ),
                 ],
