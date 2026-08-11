@@ -1,18 +1,17 @@
 import 'package:flutter/material.dart';
 
+import '../constants/app_sizes.dart';
+
 ThemeData lightTheme = ThemeData(
   useMaterial3: true,
-  colorScheme: ColorScheme.light(
-    primaryContainer: Color(0xFFFFFFFF),
-    secondary: Color(0xFF3A4640),
-  ),
+  colorScheme: ColorScheme.light(primaryContainer: Color(0xFFFFFFFF), secondary: Color(0xFF3A4640)),
   scaffoldBackgroundColor: Color(0xFFF6F7F9),
   brightness: Brightness.light,
   appBarTheme: AppBarTheme(
     backgroundColor: Colors.transparent,
     iconTheme: IconThemeData(color: Colors.black),
     centerTitle: false,
-    titleTextStyle: TextStyle(color: Colors.black, fontSize: 20),
+    titleTextStyle: TextStyle(color: Colors.black, fontSize: AppSizes.sp20),
   ),
   switchTheme: SwitchThemeData(
     trackColor: WidgetStateProperty.resolveWith((states) {
@@ -44,54 +43,44 @@ ThemeData lightTheme = ThemeData(
     style: ButtonStyle(
       backgroundColor: WidgetStateProperty.all(Color(0xFF15B86C)),
       foregroundColor: WidgetStateProperty.all(Colors.white),
-      textStyle: WidgetStateProperty.all(
-        TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
-      ),
+      textStyle: WidgetStateProperty.all(TextStyle(fontSize: AppSizes.sp14, fontWeight: FontWeight.w500)),
     ),
   ),
   textButtonTheme: TextButtonThemeData(
     style: ButtonStyle(
       foregroundColor: WidgetStateProperty.all(Colors.black),
-      // textStyle: WidgetStateProperty.all(TextStyle(fontSize: 14, fontWeight: FontWeight.w500)),
+      // textStyle: WidgetStateProperty.all(TextStyle(fontSize: AppSizes.sp14, fontWeight: FontWeight.w500)),
     ),
   ),
   floatingActionButtonTheme: FloatingActionButtonThemeData(
     backgroundColor: Color(0xFF15B86C),
     foregroundColor: Colors.white,
-    extendedTextStyle: TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
+    extendedTextStyle: TextStyle(fontSize: AppSizes.sp14, fontWeight: FontWeight.w500),
   ),
   textTheme: TextTheme(
     displayLarge: TextStyle(
-      fontSize: 32,
+      fontSize: AppSizes.sp32,
       fontWeight: FontWeight.w400,
       color: Color(0xFF161F1B),
       overflow: TextOverflow.ellipsis,
     ),
     displayMedium: TextStyle(
-      fontSize: 28,
+      fontSize: AppSizes.sp28,
       fontWeight: FontWeight.w400,
       color: Color(0xFF161F1B),
       overflow: TextOverflow.ellipsis,
     ),
     displaySmall: TextStyle(
-      fontSize: 24,
+      fontSize: AppSizes.sp24,
       fontWeight: FontWeight.w400,
       color: Color(0xFF161F1B),
       overflow: TextOverflow.ellipsis,
     ),
-    labelLarge: TextStyle(
-      color: Colors.black,
-      fontSize: 20,
-      overflow: TextOverflow.ellipsis,
-    ),
-    labelMedium: TextStyle(
-      color: Colors.black,
-      fontSize: 16,
-      overflow: TextOverflow.ellipsis,
-    ),
+    labelLarge: TextStyle(color: Colors.black, fontSize: AppSizes.sp20, overflow: TextOverflow.ellipsis),
+    labelMedium: TextStyle(color: Colors.black, fontSize: AppSizes.sp16, overflow: TextOverflow.ellipsis),
     titleLarge: TextStyle(
       color: Color(0xFF6A6A6A),
-      fontSize: 16,
+      fontSize: AppSizes.sp16,
       fontWeight: FontWeight.w400,
       decoration: TextDecoration.lineThrough,
       decorationColor: Color(0xFF6A6A6A),
@@ -99,13 +88,13 @@ ThemeData lightTheme = ThemeData(
     ),
     titleMedium: TextStyle(
       color: Color(0xFF161F1B),
-      fontSize: 16,
+      fontSize: AppSizes.sp16,
       fontWeight: FontWeight.w400,
       overflow: TextOverflow.ellipsis,
     ),
     titleSmall: TextStyle(
       color: Color(0xFF3A4640),
-      fontSize: 14,
+      fontSize: AppSizes.sp14,
       fontWeight: FontWeight.w400,
       overflow: TextOverflow.ellipsis,
     ),
@@ -140,7 +129,7 @@ ThemeData lightTheme = ThemeData(
   listTileTheme: ListTileThemeData(
     titleTextStyle: TextStyle(
       color: Color(0xFF161F1B),
-      fontSize: 16,
+      fontSize: AppSizes.sp16,
       fontWeight: FontWeight.w400,
       overflow: TextOverflow.ellipsis,
     ),
@@ -169,7 +158,7 @@ ThemeData lightTheme = ThemeData(
     labelTextStyle: WidgetStateProperty.all(
       TextStyle(
         color: Colors.black,
-        fontSize: 16,
+        fontSize: AppSizes.sp16,
         fontWeight: FontWeight.w400,
         overflow: TextOverflow.ellipsis,
       ),

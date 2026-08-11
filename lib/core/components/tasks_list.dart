@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:tasky/core/components/task_item.dart';
 
 import '../../models/task_model.dart';
+import '../constants/app_sizes.dart';
 
 class TasksList extends StatelessWidget {
   const TasksList({
@@ -37,7 +38,7 @@ class TasksList extends StatelessWidget {
         );
       },
       separatorBuilder: (BuildContext context, int index) {
-        return SizedBox(height: 8);
+        return SizedBox(height: AppSizes.h8);
       },
     );
   }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'package:tasky/features/navigation/main_screen.dart';
 import 'package:tasky/features/tasks/controllers/tasks_controller.dart';
@@ -13,9 +14,7 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await SharedPreferencesManager().init();
   ThemeController().init();
-  final String? name = SharedPreferencesManager().getString(
-    StorageKeys.userName,
-  );
+  final String? name = SharedPreferencesManager().getString(StorageKeys.userName);
   runApp(MyApp(name: name));
 }
 
@@ -33,13 +32,17 @@ class MyApp extends StatelessWidget {
           create: (_) {
             return TasksController()..loadTasks();
           },
-          child: MaterialApp(
-            debugShowCheckedModeBanner: false,
-            title: 'Tasky',
-            theme: lightTheme,
-            darkTheme: darkTheme,
-            themeMode: themeMode,
-            home: name == null ? WelcomeScreen() : MainScreen(),
+          child: ScreenUtilInit(
+            designSize: Size(375, 809),
+            minTextAdapt: true,
+            child: MaterialApp(
+              debugShowCheckedModeBanner: false,
+              title: 'Tasky',
+              theme: lightTheme,
+              darkTheme: darkTheme,
+              themeMode: themeMode,
+              home: name == null ? WelcomeScreen() : MainScreen(),
+            ),
           ),
         );
       },

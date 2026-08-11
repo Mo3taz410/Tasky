@@ -1,6 +1,7 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:tasky/core/constants/app_sizes.dart';
 import '../../tasks/controllers/tasks_controller.dart';
 
 class AchievedTasks extends StatelessWidget {
@@ -23,10 +24,7 @@ class AchievedTasks extends StatelessWidget {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    'Achieved Tasks',
-                    style: Theme.of(context).textTheme.titleMedium,
-                  ),
+                  Text('Achieved Tasks', style: Theme.of(context).textTheme.titleMedium),
                   Text(
                     '${controller.completedTasks.length} Out of ${controller.tasks.length} Done',
                     style: Theme.of(context).textTheme.titleSmall,
@@ -39,14 +37,13 @@ class AchievedTasks extends StatelessWidget {
                   Transform.rotate(
                     angle: -pi / 2,
                     child: SizedBox(
-                      width: 48,
-                      height: 48,
+                      width: AppSizes.w48,
+                      height: AppSizes.h48,
                       child: CircularProgressIndicator(
                         backgroundColor: Color(0xFF6D6D6D),
                         value: controller.tasks.isEmpty
                             ? 0
-                            : controller.completedTasks.length /
-                                  controller.tasks.length,
+                            : controller.completedTasks.length / controller.tasks.length,
                         color: Color(0xFF15B86C),
                         strokeWidth: 4,
                       ),

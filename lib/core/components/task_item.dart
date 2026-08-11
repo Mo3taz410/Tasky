@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:tasky/core/constants/app_sizes.dart';
 import 'package:tasky/core/theme/theme_controller.dart';
 import '../constants/storage_keys.dart';
 import '../enums/task_item_actions.dart';
@@ -28,9 +29,7 @@ class TaskItem extends StatelessWidget {
       decoration: BoxDecoration(
         color: Theme.of(context).colorScheme.primaryContainer,
         borderRadius: BorderRadius.circular(20),
-        border: ThemeController.isDarkMode()
-            ? null
-            : Border.all(color: Color(0xFFD1DAD6)),
+        border: ThemeController.isDarkMode() ? null : Border.all(color: Color(0xFFD1DAD6)),
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -57,7 +56,7 @@ class TaskItem extends StatelessWidget {
                         taskModel.description,
                         style: TextStyle(
                           color: Color(0xFFC6C6C6),
-                          fontSize: 14,
+                          fontSize: AppSizes.sp14,
                           overflow: TextOverflow.ellipsis,
                         ),
                       ),
@@ -74,18 +73,12 @@ class TaskItem extends StatelessWidget {
                   : null,
             ),
             itemBuilder: (context) => TaskItemActions.values.map((action) {
-              return PopupMenuItem<TaskItemActions>(
-                value: action,
-                child: Text(action.name),
-              );
+              return PopupMenuItem<TaskItemActions>(value: action, child: Text(action.name));
             }).toList(),
             onSelected: (value) async {
               switch (value) {
                 case TaskItemActions.edit:
-                  final result = await _showEditDialog(
-                    context,
-                    taskModel: taskModel,
-                  );
+                  final result = await _showEditDialog(context, taskModel: taskModel);
                   if (result == true) {
                     onEdit();
                   }
@@ -130,11 +123,8 @@ class TaskItem extends StatelessWidget {
   }
 
   Future<bool?> _showEditDialog(context, {required TaskModel taskModel}) {
-    final TextEditingController taskNameController = TextEditingController(
-      text: taskModel.name,
-    );
-    final TextEditingController taskDescriptionController =
-        TextEditingController(text: taskModel.description);
+    final TextEditingController taskNameController = TextEditingController(text: taskModel.name);
+    final TextEditingController taskDescriptionController = TextEditingController(text: taskModel.description);
     final GlobalKey<FormState> formKey = GlobalKey<FormState>();
     bool isHighPriority = taskModel.isHighPriority;
 
@@ -155,7 +145,7 @@ class TaskItem extends StatelessWidget {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            SizedBox(height: 8),
+                            SizedBox(height: AppSizes.h8),
                             CustomTextFormField(
                               controller: taskNameController,
                               hintText: 'Finish UI design for login screen',
@@ -167,25 +157,19 @@ class TaskItem extends StatelessWidget {
                               },
                               title: 'Task Name',
                             ),
-                            SizedBox(height: 20),
-                            SizedBox(height: 8),
+                            SizedBox(height: AppSizes.h20),
+                            SizedBox(height: AppSizes.h8),
                             CustomTextFormField(
                               title: 'Task Description (Optional)',
                               controller: taskDescriptionController,
-                              hintText:
-                                  'Finish onboarding UI and hand off to devs by Thursday.',
+                              hintText: 'Finish onboarding UI and hand off to devs by Thursday.',
                               maxLines: 5,
                             ),
-                            SizedBox(height: 20),
+                            SizedBox(height: AppSizes.h20),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Text(
-                                  'High Priority',
-                                  style: Theme.of(
-                                    context,
-                                  ).textTheme.titleMedium,
-                                ),
+                                Text('High Priority', style: Theme.of(context).textTheme.titleMedium),
                                 Switch(
                                   value: isHighPriority,
                                   onChanged: (bool value) {
@@ -207,8 +191,7 @@ class TaskItem extends StatelessWidget {
                       child: ElevatedButton.icon(
                         onPressed: () async {
                           if (formKey.currentState!.validate()) {
-                            final tasksJson = SharedPreferencesManager()
-                                .getString(StorageKeys.tasks);
+                            final tasksJson = SharedPreferencesManager().getString(StorageKeys.tasks);
                             List<dynamic> tasksList = [];
                             if (tasksJson != null) {
                               tasksList = jsonDecode(tasksJson);
@@ -220,17 +203,12 @@ class TaskItem extends StatelessWidget {
                               isHighPriority: isHighPriority,
                               isCompleted: taskModel.isCompleted,
                             );
-                            final currentTask = tasksList.firstWhere(
-                              (element) => element['id'] == taskModel.id,
-                            );
+                            final currentTask = tasksList.firstWhere((element) => element['id'] == taskModel.id);
                             final index = tasksList.indexOf(currentTask);
                             tasksList[index] = newTaskModel;
 
                             final tasksEncode = jsonEncode(tasksList);
-                            await SharedPreferencesManager().setString(
-                              StorageKeys.tasks,
-                              tasksEncode,
-                            );
+                            await SharedPreferencesManager().setString(StorageKeys.tasks, tasksEncode);
                             if (!context.mounted) return;
                             Navigator.of(context).pop(true);
                           }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import '../../core/constants/app_sizes.dart';
 import '../../core/widgets/custom_text_form_field.dart';
 import 'add_task_controller.dart';
 
@@ -28,7 +29,7 @@ class AddTaskScreen extends StatelessWidget {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            SizedBox(height: 8),
+                            SizedBox(height: AppSizes.h8),
                             CustomTextFormField(
                               controller: controller.taskNameController,
                               hintText: 'Finish UI design for login screen',
@@ -40,41 +41,29 @@ class AddTaskScreen extends StatelessWidget {
                               },
                               title: 'Task Name',
                             ),
-                            SizedBox(height: 20),
-                            SizedBox(height: 8),
+                            SizedBox(height: AppSizes.h20),
+                            SizedBox(height: AppSizes.h8),
                             CustomTextFormField(
                               title: 'Task Description (Optional)',
                               controller: controller.taskDescriptionController,
-                              hintText:
-                                  'Finish onboarding UI and hand off to devs by Thursday.',
+                              hintText: 'Finish onboarding UI and hand off to devs by Thursday.',
                               maxLines: 5,
                             ),
-                            SizedBox(height: 20),
+                            SizedBox(height: AppSizes.h20),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Text(
-                                  'High Priority',
-                                  style: Theme.of(
-                                    context,
-                                  ).textTheme.titleMedium,
-                                ),
+                                Text('High Priority', style: Theme.of(context).textTheme.titleMedium),
                                 Consumer<AddTaskController>(
-                                  builder:
-                                      (
-                                        BuildContext context,
-                                        AddTaskController addTaskController,
-                                        Widget? child,
-                                      ) {
-                                        return Switch(
-                                          value:
-                                              addTaskController.isHighPriority,
-                                          onChanged: (bool value) {
-                                            controller.toggle(value);
-                                          },
-                                          activeTrackColor: Color(0xFF15B86C),
-                                        );
+                                  builder: (BuildContext context, AddTaskController addTaskController, Widget? child) {
+                                    return Switch(
+                                      value: addTaskController.isHighPriority,
+                                      onChanged: (bool value) {
+                                        controller.toggle(value);
                                       },
+                                      activeTrackColor: Color(0xFF15B86C),
+                                    );
+                                  },
                                 ),
                               ],
                             ),
@@ -87,9 +76,7 @@ class AddTaskScreen extends StatelessWidget {
                       height: 40,
                       child: ElevatedButton.icon(
                         onPressed: () async {
-                          await context.read<AddTaskController>().addTask(
-                            context,
-                          );
+                          await context.read<AddTaskController>().addTask(context);
                         },
                         icon: Icon(Icons.add),
                         label: Text('Add Task'),

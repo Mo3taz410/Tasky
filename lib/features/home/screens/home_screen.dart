@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tasky/features/home/components/achieved_tasks.dart';
 import 'package:tasky/features/home/components/high_priority_tasks.dart';
+import '../../../core/constants/app_sizes.dart';
 import '../../../core/widgets/custom_svg_picture.dart';
 import '../../tasks/controllers/tasks_controller.dart';
 import '../components/sliver_tasks_list.dart';
@@ -29,47 +30,29 @@ class HomeScreen extends StatelessWidget {
                   Row(
                     children: [
                       Selector<HomeController, String?>(
-                        builder:
-                            (
-                              BuildContext context,
-                              String? profilePicturePath,
-                              Widget? child,
-                            ) {
-                              return CircleAvatar(
-                                radius: 20,
-                                backgroundImage: profilePicturePath != null
-                                    ? FileImage(File(profilePicturePath))
-                                    : AssetImage('assets/images/person.png'),
-                              );
-                            },
-                        selector:
-                            (BuildContext context, HomeController controller) =>
-                                controller.profilePicturePath,
+                        builder: (BuildContext context, String? profilePicturePath, Widget? child) {
+                          return CircleAvatar(
+                            radius: 20,
+                            backgroundImage: profilePicturePath != null
+                                ? FileImage(File(profilePicturePath))
+                                : AssetImage('assets/images/person.png'),
+                          );
+                        },
+                        selector: (BuildContext context, HomeController controller) => controller.profilePicturePath,
                       ),
-                      SizedBox(width: 10),
+                      SizedBox(width: AppSizes.w10),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Selector<HomeController, String>(
-                            builder:
-                                (
-                                  BuildContext context,
-                                  String name,
-                                  Widget? child,
-                                ) {
-                                  return Text(
-                                    'Good Evening, $name',
-                                    style: Theme.of(
-                                      context,
-                                    ).textTheme.titleMedium,
-                                    overflow: TextOverflow.ellipsis,
-                                  );
-                                },
-                            selector:
-                                (
-                                  BuildContext context,
-                                  HomeController controller,
-                                ) => controller.name,
+                            builder: (BuildContext context, String name, Widget? child) {
+                              return Text(
+                                'Good Evening, $name',
+                                style: Theme.of(context).textTheme.titleMedium,
+                                overflow: TextOverflow.ellipsis,
+                              );
+                            },
+                            selector: (BuildContext context, HomeController controller) => controller.name,
                           ),
                           Text(
                             'One task at a time.One step closer.',
@@ -80,32 +63,21 @@ class HomeScreen extends StatelessWidget {
                       ),
                     ],
                   ),
-                  SizedBox(height: 16),
-                  Text(
-                    'Yuhuu ,Your work Is',
-                    style: Theme.of(context).textTheme.displayLarge,
-                  ),
+                  SizedBox(height: AppSizes.h16),
+                  Text('Yuhuu ,Your work Is', style: Theme.of(context).textTheme.displayLarge),
                   Row(
                     children: [
-                      Text(
-                        'almost done ! ',
-                        style: Theme.of(context).textTheme.displayLarge,
-                      ),
-                      CustomSvgPicture.withoutColor(
-                        path: 'assets/icons/waving_hand.svg',
-                      ),
+                      Text('almost done ! ', style: Theme.of(context).textTheme.displayLarge),
+                      CustomSvgPicture.withoutColor(path: 'assets/icons/waving_hand.svg'),
                     ],
                   ),
-                  SizedBox(height: 16),
+                  SizedBox(height: AppSizes.h16),
                   AchievedTasks(),
-                  SizedBox(height: 8),
+                  SizedBox(height: AppSizes.h8),
                   HighPriorityTasks(),
-                  SizedBox(height: 24),
-                  Text(
-                    'My Tasks',
-                    style: Theme.of(context).textTheme.labelLarge,
-                  ),
-                  SizedBox(height: 16),
+                  SizedBox(height: AppSizes.h24),
+                  Text('My Tasks', style: Theme.of(context).textTheme.labelLarge),
+                  SizedBox(height: AppSizes.h16),
                 ],
               ),
             ),
@@ -119,17 +91,13 @@ class HomeScreen extends StatelessWidget {
               return FloatingActionButton.extended(
                 backgroundColor: Color(0xFF15B86C),
                 foregroundColor: Colors.white,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(30),
-                ),
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
                 onPressed: () async {
                   final bool? result = await Navigator.push(
                     context,
                     MaterialPageRoute(builder: (context) => AddTaskScreen()),
                   );
-                  result != null && result
-                      ? context.read<TasksController>().loadTasks()
-                      : null;
+                  result != null && result ? context.read<TasksController>().loadTasks() : null;
                 },
                 label: Text('Add New Task'),
                 icon: Icon(Icons.add),

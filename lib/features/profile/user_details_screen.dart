@@ -1,15 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:tasky/core/constants/app_sizes.dart';
 import 'package:tasky/core/services/shared_preferences_manager.dart';
 import 'package:tasky/core/widgets/custom_text_form_field.dart';
 
 import '../../core/constants/storage_keys.dart';
 
 class UserDetailsScreen extends StatefulWidget {
-  const UserDetailsScreen({
-    super.key,
-    required this.name,
-    required this.motivationQuote,
-  });
+  const UserDetailsScreen({super.key, required this.name, required this.motivationQuote});
 
   final String name;
   final String? motivationQuote;
@@ -21,8 +18,7 @@ class UserDetailsScreen extends StatefulWidget {
 class _UserDetailsScreenState extends State<UserDetailsScreen> {
   /// TODO : DISPOSE CONTROLLERS
   final TextEditingController usernameController = TextEditingController();
-  final TextEditingController motivationQuoteController =
-      TextEditingController();
+  final TextEditingController motivationQuoteController = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   @override
@@ -65,7 +61,7 @@ class _UserDetailsScreenState extends State<UserDetailsScreen> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        SizedBox(height: 8),
+                        SizedBox(height: AppSizes.h8),
                         CustomTextFormField(
                           controller: usernameController,
                           hintText: 'Usama Elgendy',
@@ -77,8 +73,8 @@ class _UserDetailsScreenState extends State<UserDetailsScreen> {
                             return null;
                           },
                         ),
-                        SizedBox(height: 20),
-                        SizedBox(height: 8),
+                        SizedBox(height: AppSizes.h20),
+                        SizedBox(height: AppSizes.h8),
                         CustomTextFormField(
                           title: 'Motivation Quote',
                           controller: motivationQuoteController,
@@ -91,7 +87,7 @@ class _UserDetailsScreenState extends State<UserDetailsScreen> {
                             return null;
                           },
                         ),
-                        SizedBox(height: 20),
+                        SizedBox(height: AppSizes.h20),
                       ],
                     ),
                   ),
@@ -99,10 +95,7 @@ class _UserDetailsScreenState extends State<UserDetailsScreen> {
                 ElevatedButton(
                   onPressed: () async {
                     if (_formKey.currentState!.validate()) {
-                      await SharedPreferencesManager().setString(
-                        StorageKeys.userName,
-                        usernameController.text,
-                      );
+                      await SharedPreferencesManager().setString(StorageKeys.userName, usernameController.text);
                       await SharedPreferencesManager().setString(
                         StorageKeys.motivationQuote,
                         motivationQuoteController.text,
