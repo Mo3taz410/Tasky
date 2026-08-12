@@ -21,7 +21,7 @@ class TasksList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView.separated(
-      padding: EdgeInsets.only(bottom: 50),
+      padding: EdgeInsets.only(bottom: AppSizes.h48),
       itemCount: tasks.length,
       itemBuilder: (BuildContext context, int index) {
         return TaskItem(

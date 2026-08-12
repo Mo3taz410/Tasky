@@ -12,11 +12,11 @@ class AchievedTasks extends StatelessWidget {
     return Consumer<TasksController>(
       builder: (BuildContext context, TasksController controller, Widget? child) {
         return Container(
-          padding: EdgeInsets.all(16),
+          padding: EdgeInsets.symmetric(horizontal: AppSizes.w16, vertical: AppSizes.h16),
           width: double.infinity,
           decoration: BoxDecoration(
             color: Theme.of(context).colorScheme.primaryContainer,
-            borderRadius: BorderRadius.circular(20),
+            borderRadius: BorderRadius.circular(AppSizes.r20),
           ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,

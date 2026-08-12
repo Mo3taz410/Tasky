@@ -32,7 +32,7 @@ class HomeScreen extends StatelessWidget {
                       Selector<HomeController, String?>(
                         builder: (BuildContext context, String? profilePicturePath, Widget? child) {
                           return CircleAvatar(
-                            radius: 20,
+                            radius: AppSizes.r20,
                             backgroundImage: profilePicturePath != null
                                 ? FileImage(File(profilePicturePath))
                                 : AssetImage('assets/images/person.png'),
@@ -91,7 +91,7 @@ class HomeScreen extends StatelessWidget {
               return FloatingActionButton.extended(
                 backgroundColor: Color(0xFF15B86C),
                 foregroundColor: Colors.white,
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(AppSizes.r30)),
                 onPressed: () async {
                   final bool? result = await Navigator.push(
                     context,

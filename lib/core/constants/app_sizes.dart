@@ -11,14 +11,23 @@ class AppSizes {
   static final double h34 = 34.h;
   static final double h40 = 40.h;
   static final double h48 = 48.h;
+  static final double h80 = 80.h;
   static final double h110 = 110.h;
 
   /// width
   static final double w8 = 8.w;
   static final double w10 = 10.w;
+  static final double w16 = 16.w;
   static final double w34 = 34.w;
   static final double w40 = 40.w;
   static final double w48 = 48.w;
+
+  /// radius
+  static final double r4 = 4.r;
+  static final double r16 = 16.r;
+  static final double r20 = 20.r;
+  static final double r30 = 30.r;
+  static final double r50 = 50.r;
 
   /// Font Size
   static final double sp8 = 8.sp;

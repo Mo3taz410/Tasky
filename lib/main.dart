@@ -35,7 +35,7 @@ class MyApp extends StatelessWidget {
           child: ScreenUtilInit(
             designSize: Size(375, 809),
             minTextAdapt: true,
-            child: MaterialApp(
+            builder: (context, child) => MaterialApp(
               debugShowCheckedModeBanner: false,
               title: 'Tasky',
               theme: lightTheme,

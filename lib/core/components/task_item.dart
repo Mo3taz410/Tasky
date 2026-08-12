@@ -135,7 +135,7 @@ class TaskItem extends StatelessWidget {
         return StatefulBuilder(
           builder: (BuildContext context, void Function(void Function()) setState) {
             return Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+              padding: EdgeInsets.symmetric(horizontal: AppSizes.w16, vertical: AppSizes.h8),
               child: Form(
                 key: formKey,
                 child: Column(
@@ -187,7 +187,7 @@ class TaskItem extends StatelessWidget {
                     ),
                     SizedBox(
                       width: double.infinity,
-                      height: 40,
+                      height: AppSizes.h40,
                       child: ElevatedButton.icon(
                         onPressed: () async {
                           if (formKey.currentState!.validate()) {

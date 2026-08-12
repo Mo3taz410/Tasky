@@ -54,7 +54,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         alignment: Alignment.bottomRight,
                         children: [
                           CircleAvatar(
-                            radius: 50,
+                            radius: AppSizes.r50,
                             backgroundImage: profilePicturePath != null
                                 ? FileImage(File(profilePicturePath!))
                                 : AssetImage('assets/images/person.png'),

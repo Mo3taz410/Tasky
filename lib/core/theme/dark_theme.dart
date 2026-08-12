@@ -40,10 +40,10 @@ ThemeData darkTheme = ThemeData(
     }),
   ),
   elevatedButtonTheme: ElevatedButtonThemeData(
-    style: ButtonStyle(
-      backgroundColor: WidgetStateProperty.all(Color(0xFF15B86C)),
-      foregroundColor: WidgetStateProperty.all(Colors.white),
-      textStyle: WidgetStateProperty.all(TextStyle(fontSize: AppSizes.sp14, fontWeight: FontWeight.w500)),
+    style: ElevatedButton.styleFrom(
+      backgroundColor: Color(0xFF15B86C),
+      foregroundColor: Colors.white,
+      textStyle: TextStyle(fontSize: AppSizes.sp14, fontWeight: FontWeight.w500),
     ),
   ),
   textButtonTheme: TextButtonThemeData(
@@ -104,19 +104,19 @@ ThemeData darkTheme = ThemeData(
     hintStyle: TextStyle(color: Color(0xFF6D6D6D)),
     filled: true,
     fillColor: Color(0xFF282828),
-    border: OutlineInputBorder(borderRadius: BorderRadius.circular(16), borderSide: BorderSide.none),
-    enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(16), borderSide: BorderSide.none),
-    focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(16), borderSide: BorderSide.none),
+    border: OutlineInputBorder(borderRadius: BorderRadius.circular(AppSizes.r16), borderSide: BorderSide.none),
+    enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(AppSizes.r16), borderSide: BorderSide.none),
+    focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(AppSizes.r16), borderSide: BorderSide.none),
     errorBorder: OutlineInputBorder(
-      borderRadius: BorderRadius.circular(16),
+      borderRadius: BorderRadius.circular(AppSizes.r16),
       borderSide: BorderSide(color: Colors.red),
     ),
   ),
   checkboxTheme: CheckboxThemeData(
     side: BorderSide(color: Color(0xFF6E6E6E), width: 2),
-    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
+    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(AppSizes.r4)),
   ),
-  iconTheme: IconThemeData(color: Color(0xFFC6C6C6), size: 20),
+  iconTheme: IconThemeData(color: Color(0xFFC6C6C6), size: AppSizes.r20),
   listTileTheme: ListTileThemeData(
     titleTextStyle: TextStyle(
       color: Color(0xFFFFFCFC),
@@ -142,7 +142,7 @@ ThemeData darkTheme = ThemeData(
     elevation: 10,
     shadowColor: Color(0xFF15B86C),
     shape: RoundedRectangleBorder(
-      borderRadius: BorderRadius.circular(16),
+      borderRadius: BorderRadius.circular(AppSizes.r16),
       side: BorderSide(color: Color(0xFF15B86C), width: 2),
     ),
     color: Color(0xFF282828),

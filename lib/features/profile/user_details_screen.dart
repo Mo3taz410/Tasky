@@ -51,7 +51,7 @@ class _UserDetailsScreenState extends State<UserDetailsScreen> {
       appBar: AppBar(title: Text('User Details')),
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+          padding: EdgeInsets.symmetric(horizontal: AppSizes.w16, vertical: AppSizes.h8),
           child: Form(
             key: _formKey,
             child: Column(

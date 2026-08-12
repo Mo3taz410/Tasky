@@ -16,11 +16,11 @@ class HighPriorityTasks extends StatelessWidget {
       builder: (BuildContext context, TasksController controller, Widget? child) {
         final highPriorityTasks = controller.tasks.where((task) => task.isHighPriority).toList();
         return Container(
-          padding: EdgeInsets.only(bottom: 8),
+          padding: EdgeInsets.only(bottom: AppSizes.h8),
           width: double.infinity,
           decoration: BoxDecoration(
             color: Theme.of(context).colorScheme.primaryContainer,
-            borderRadius: BorderRadius.circular(20),
+            borderRadius: BorderRadius.circular(AppSizes.r20),
           ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -31,7 +31,7 @@ class HighPriorityTasks extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Padding(
-                      padding: const EdgeInsets.all(16),
+                      padding: EdgeInsets.symmetric(horizontal: AppSizes.w16, vertical: AppSizes.h16),
                       child: Text(
                         'High Priority Tasks',
                         style: TextStyle(color: Color(0xFF15B86C), fontSize: AppSizes.sp14),
@@ -62,14 +62,14 @@ class HighPriorityTasks extends StatelessWidget {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.all(16),
+                padding: EdgeInsets.symmetric(horizontal: AppSizes.w16, vertical: AppSizes.h16),
                 child: GestureDetector(
                   onTap: () async {
                     await Navigator.push(context, MaterialPageRoute(builder: (context) => HighPriorityTasksScreen()));
                     controller.loadTasks();
                   },
                   child: Container(
-                    padding: EdgeInsets.all(8),
+                    padding: EdgeInsets.symmetric(horizontal: AppSizes.w8, vertical: AppSizes.h8),
                     width: AppSizes.w40,
                     height: AppSizes.h40,
                     decoration: BoxDecoration(

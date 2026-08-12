@@ -18,7 +18,7 @@ class WelcomeScreen extends StatelessWidget {
     return Scaffold(
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.all(16),
+          padding: EdgeInsets.symmetric(horizontal: AppSizes.w16, vertical: AppSizes.h16),
           child: SingleChildScrollView(
             child: Form(
               key: _formKey,
@@ -79,7 +79,7 @@ class WelcomeScreen extends StatelessWidget {
                       //     filled: true,
                       //     fillColor: Color(0xFF282828),
                       //     border: OutlineInputBorder(
-                      //       borderRadius: BorderRadius.circular(16),
+                      //       borderRadius: BorderRadius.circular(AppSizes.r16),
                       //       borderSide: BorderSide.none,
                       //     ),
                       //   ),

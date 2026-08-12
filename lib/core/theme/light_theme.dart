@@ -104,19 +104,19 @@ ThemeData lightTheme = ThemeData(
     filled: true,
     fillColor: Color(0xFFFFFFFF),
     border: OutlineInputBorder(
-      borderRadius: BorderRadius.circular(16),
+      borderRadius: BorderRadius.circular(AppSizes.r16),
       borderSide: BorderSide(color: Color(0xFFD1DAD6)),
     ),
     enabledBorder: OutlineInputBorder(
-      borderRadius: BorderRadius.circular(16),
+      borderRadius: BorderRadius.circular(AppSizes.r16),
       borderSide: BorderSide(color: Color(0xFFD1DAD6)),
     ),
     focusedBorder: OutlineInputBorder(
-      borderRadius: BorderRadius.circular(16),
+      borderRadius: BorderRadius.circular(AppSizes.r16),
       borderSide: BorderSide(color: Color(0xFFD1DAD6)),
     ),
     errorBorder: OutlineInputBorder(
-      borderRadius: BorderRadius.circular(16),
+      borderRadius: BorderRadius.circular(AppSizes.r16),
       borderSide: BorderSide(color: Colors.red),
     ),
     focusColor: Color(0xFFD1DAD6),
@@ -125,7 +125,7 @@ ThemeData lightTheme = ThemeData(
     side: BorderSide(color: Color(0xFFD1DAD6), width: 2),
     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
   ),
-  iconTheme: IconThemeData(color: Color(0xFF3A4640), size: 20),
+  iconTheme: IconThemeData(color: Color(0xFF3A4640), size: AppSizes.r20),
   listTileTheme: ListTileThemeData(
     titleTextStyle: TextStyle(
       color: Color(0xFF161F1B),
@@ -151,7 +151,7 @@ ThemeData lightTheme = ThemeData(
     elevation: 10,
     shadowColor: Color(0xFF15B86C),
     shape: RoundedRectangleBorder(
-      borderRadius: BorderRadius.circular(16),
+      borderRadius: BorderRadius.circular(AppSizes.r16),
       side: BorderSide(color: Color(0xFF15B86C), width: 2),
     ),
     color: Color(0xFFF6F7F9),

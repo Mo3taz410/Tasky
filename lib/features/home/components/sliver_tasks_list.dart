@@ -18,7 +18,7 @@ class SliverTasksList extends StatelessWidget {
                 child: Center(child: Text('No Tasks Yet', style: Theme.of(context).textTheme.titleMedium)),
               )
             : SliverPadding(
-                padding: const EdgeInsets.only(bottom: 80),
+                padding: EdgeInsets.only(bottom: AppSizes.h80),
                 sliver: SliverList.separated(
                   itemCount: controller.tasks.length,
                   itemBuilder: (BuildContext context, int index) {
