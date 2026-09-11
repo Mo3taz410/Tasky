@@ -2,15 +2,18 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class SharedPreferencesManager {
   static final SharedPreferencesManager _instance = SharedPreferencesManager._internal();
+
+  // Private constructor to prevent external instantiation
+  SharedPreferencesManager._internal();
+
   // Getter for the singleton instance
   factory SharedPreferencesManager() {
     return _instance;
   }
-  // Private constructor to prevent external instantiation
-  SharedPreferencesManager._internal();
 
   // SharedPreferences instance
   late final SharedPreferences _prefs;
+
   init() async {
     _prefs = await SharedPreferences.getInstance();
   }

@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:tasky/core/constants/app_sizes.dart';
+import 'package:tasky/core/services/file_storage_manager.dart';
 import 'package:tasky/core/theme/theme_controller.dart';
 import '../constants/storage_keys.dart';
 import '../enums/task_item_actions.dart';
@@ -191,11 +192,8 @@ class TaskItem extends StatelessWidget {
                       child: ElevatedButton.icon(
                         onPressed: () async {
                           if (formKey.currentState!.validate()) {
-                            final tasksJson = SharedPreferencesManager().getString(StorageKeys.tasks);
-                            List<dynamic> tasksList = [];
-                            if (tasksJson != null) {
-                              tasksList = jsonDecode(tasksJson);
-                            }
+                            List<dynamic> tasksList = await FileStorageManager().loadTasks();
+
                             TaskModel newTaskModel = TaskModel(
                               id: taskModel.id,
                               name: taskNameController.text,

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
+import 'package:tasky/core/services/file_storage_manager.dart';
 import 'package:tasky/features/navigation/main_screen.dart';
 import 'package:tasky/features/tasks/controllers/tasks_controller.dart';
 import 'package:tasky/features/welcome/welcome_screen.dart';
@@ -13,6 +14,7 @@ import 'core/theme/theme_controller.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await SharedPreferencesManager().init();
+  await FileStorageManager().init();
   ThemeController().init();
   final String? name = SharedPreferencesManager().getString(StorageKeys.userName);
   runApp(MyApp(name: name));

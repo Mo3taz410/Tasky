@@ -1,7 +1,5 @@
-import 'dart:convert';
 import 'package:flutter/material.dart';
-import '../../../core/constants/storage_keys.dart';
-import '../../../core/services/shared_preferences_manager.dart';
+import 'package:tasky/core/services/file_storage_manager.dart';
 import '../../../models/task_model.dart';
 
 class TasksController extends ChangeNotifier {
@@ -13,11 +11,11 @@ class TasksController extends ChangeNotifier {
   List<TaskModel> highPriorityTasks = [];
 
   void loadTasks() async {
-    final String? getTasks = SharedPreferencesManager().getString(
-      StorageKeys.tasks,
-    );
-    if (getTasks == null) return;
-    final List<dynamic> decodedList = jsonDecode(getTasks);
+    // final String? getTasks = SharedPreferencesManager().getString(
+    //   StorageKeys.tasks,
+    // );
+    // if (getTasks == null) return;
+    final decodedList = await FileStorageManager().loadTasks();
     tasks = decodedList.map((e) => TaskModel.fromJson(e)).toList();
     _loadData();
     isLoading = false;
@@ -29,10 +27,7 @@ class TasksController extends ChangeNotifier {
     _loadData();
 
     final updatedTasks = tasks.map((e) => e.toJson()).toList();
-    await SharedPreferencesManager().setString(
-      StorageKeys.tasks,
-      jsonEncode(updatedTasks),
-    );
+    await FileStorageManager().saveTasks(updatedTasks);
     notifyListeners();
   }
 
@@ -40,18 +35,13 @@ class TasksController extends ChangeNotifier {
     final index = tasks.indexWhere((element) => element.id == id);
     tasks[index].isCompleted = value!;
     _loadData();
-    await SharedPreferencesManager().setString(
-      StorageKeys.tasks,
-      jsonEncode(tasks),
-    );
+    FileStorageManager().saveTasks(tasks);
     notifyListeners();
   }
 
-  _loadData() {
+  void _loadData() {
     todoTasks = tasks.where((element) => !element.isCompleted).toList();
     completedTasks = tasks.where((element) => element.isCompleted).toList();
-    highPriorityTasks = tasks
-        .where((element) => element.isHighPriority)
-        .toList();
+    highPriorityTasks = tasks.where((element) => element.isHighPriority).toList();
   }
 }

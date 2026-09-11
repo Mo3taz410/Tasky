@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:tasky/core/services/file_storage_manager.dart';
 
 import '../../core/constants/storage_keys.dart';
 import '../../core/services/shared_preferences_manager.dart';
@@ -8,8 +9,7 @@ import '../../models/task_model.dart';
 
 class AddTaskController extends ChangeNotifier {
   final TextEditingController taskNameController = TextEditingController();
-  final TextEditingController taskDescriptionController =
-      TextEditingController();
+  final TextEditingController taskDescriptionController = TextEditingController();
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   bool isHighPriority = true;
 
@@ -28,11 +28,11 @@ class AddTaskController extends ChangeNotifier {
       );
 
       tasksList.add(task.toJson());
+
+      await FileStorageManager().saveTasks(tasksList); // new
+
       final tasksEncode = jsonEncode(tasksList);
-      await SharedPreferencesManager().setString(
-        StorageKeys.tasks,
-        tasksEncode,
-      );
+      await SharedPreferencesManager().setString(StorageKeys.tasks, tasksEncode);
       if (!context.mounted) return;
       Navigator.of(context).pop(true);
     }
