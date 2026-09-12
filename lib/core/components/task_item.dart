@@ -1,11 +1,8 @@
-import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:tasky/core/constants/app_sizes.dart';
 import 'package:tasky/core/services/file_storage_manager.dart';
 import 'package:tasky/core/theme/theme_controller.dart';
-import '../constants/storage_keys.dart';
 import '../enums/task_item_actions.dart';
-import '../services/shared_preferences_manager.dart';
 import '../widgets/custom_checkbox.dart';
 import '../widgets/custom_text_form_field.dart';
 import '../../models/task_model.dart';
@@ -205,8 +202,8 @@ class TaskItem extends StatelessWidget {
                             final index = tasksList.indexOf(currentTask);
                             tasksList[index] = newTaskModel;
 
-                            final tasksEncode = jsonEncode(tasksList);
-                            await SharedPreferencesManager().setString(StorageKeys.tasks, tasksEncode);
+                            await FileStorageManager().saveTasks(tasksList);
+
                             if (!context.mounted) return;
                             Navigator.of(context).pop(true);
                           }

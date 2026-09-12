@@ -1,10 +1,5 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:tasky/core/services/file_storage_manager.dart';
-
-import '../../core/constants/storage_keys.dart';
-import '../../core/services/shared_preferences_manager.dart';
 import '../../models/task_model.dart';
 
 class AddTaskController extends ChangeNotifier {
@@ -15,11 +10,8 @@ class AddTaskController extends ChangeNotifier {
 
   Future<void> addTask(BuildContext context) async {
     if (formKey.currentState!.validate()) {
-      final tasksJson = SharedPreferencesManager().getString(StorageKeys.tasks);
-      List<dynamic> tasksList = [];
-      if (tasksJson != null) {
-        tasksList = jsonDecode(tasksJson);
-      }
+      List<dynamic> tasksList = await FileStorageManager().loadTasks();
+
       TaskModel task = TaskModel(
         id: tasksList.length + 1,
         name: taskNameController.text,
@@ -29,10 +21,8 @@ class AddTaskController extends ChangeNotifier {
 
       tasksList.add(task.toJson());
 
-      await FileStorageManager().saveTasks(tasksList); // new
+      await FileStorageManager().saveTasks(tasksList);
 
-      final tasksEncode = jsonEncode(tasksList);
-      await SharedPreferencesManager().setString(StorageKeys.tasks, tasksEncode);
       if (!context.mounted) return;
       Navigator.of(context).pop(true);
     }

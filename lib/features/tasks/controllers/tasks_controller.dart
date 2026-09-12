@@ -35,7 +35,7 @@ class TasksController extends ChangeNotifier {
     final index = tasks.indexWhere((element) => element.id == id);
     tasks[index].isCompleted = value!;
     _loadData();
-    FileStorageManager().saveTasks(tasks);
+    await FileStorageManager().saveTasks(tasks);
     notifyListeners();
   }
 

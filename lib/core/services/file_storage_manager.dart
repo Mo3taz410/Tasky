@@ -30,4 +30,9 @@ class FileStorageManager {
     final String tasksJson = await _tasksFile.readAsString();
     return jsonDecode(tasksJson) as List<dynamic>;
   }
+
+  Future<void> clear() async {
+    if (!await _tasksFile.exists()) return;
+    await _tasksFile.delete();
+  }
 }
